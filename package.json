@@ -1,0 +1,19 @@
+{
+    "name": "relatorios-giss",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.mjs",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "sudo nodemon --experimental-json-modules index.mjs"
+    },
+    "author": "",
+    "license": "ISC",
+    "type": "module",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "easy-pdf-merge": "^0.2.6",
+        "express": "^4.17.3",
+        "puppeteer": "^13.6.0"
+    }
+}
