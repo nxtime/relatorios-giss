@@ -1,5 +1,6 @@
 import fs from 'fs';
-import login from './mocks/logins.json';
+import login from './mocks/logins.json' assert {type: "json"};
+
 export default function getLoginData(cnpj = null) {
     if (cnpj.length !== 14) return { status: 'error', message: "Não foi passado um CNPJ válido!" }
     console.log("Verificando o CNPJ, e pegando a data necessária")

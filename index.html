@@ -1,11 +1,334 @@
 <!DOCTYPE html>
 <head>
-	<title>API - PEGAR RELATÓRIO</title>	
+	<title>API - PEGAR RELATÓRIO</title>
 </head>
+<style>
+	:root {
+		--default-bg-color: rgb(5, 34, 48);
+		--dark-bg-color: rgb(2, 19, 27);
+		--light-bg-color: rgb(9, 46, 65);
+		--code-bg-color: #222;
+		--code-bg-color-hover: rgb(46, 46, 46);
+		--default-text-color: rgb(187, 195, 206);
+		--bright-text-color: rgb(220, 223, 228);
+		--md-p: 1rem;
+		--sm-p: .5rem;
+		--input-p: 1rem 0.5rem;
+		--default-p: 2rem;
+		--default-px: 2rem;
+		--default-py: 2rem;
+		--default-radius: 2rem; 
+		--xs-radius: .5rem; 
+	}
+	* {
+		box-sizing: border-box;
+	}
+	body {
+		background-color: var(--default-bg-color);
+		color: var(--default-text-color);
+		/* overflow: hidden; */
+		font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+	}
+	#section-header header {
+		background-color:var(--dark-bg-color);
+		padding: var(--md-p);
+		border-radius: var(--default-radius);
+	}
+	section {
+		width: 80%;
+		max-width: 800px;
+		margin-inline: auto;
+		text-align: center;
+	}
+	code {
+		max-width: 100%;
+		background-color: var(--code-bg-color);
+		border-radius: var(--xs-radius);
+		line-break: auto;
+		text-overflow: clip;
+		padding: var(--md-p);
+	}
+	code:hover {
+		background-color: var(--code-bg-color-hover);
+	}
+	.flex {
+		width: 100%;
+		display: flex;
+		/* flex-direction: center; */
+	}
+	.flex-col {
+		flex-direction: column;
+	}
+	.title {
+		font-size: 24pt;
+		line-height: 1.25rem;
+		font-weight: 600;
+		margin-bottom: 10px;
+		color: var(--bright-text-color);
+	}
+	.subtitle {
+		font-size: 16pt;
+	}
+
+	#section-howto {
+		display: flex;
+		flex-direction: column;
+		max-width: 1200px;
+		background-color: var(--dark-bg-color);
+		border-radius: var(--default-radius);
+		margin-top: 2rem;
+	}
+	#section-howto .table-container {
+		margin-top: .5rem;
+	}
+
+	#section-howto table {
+		background-color: var(--light-bg-color);
+		margin-inline: auto;
+		width: fit-content;
+		border-radius: var(--xs-radius);
+		overflow: hidden;
+	}
+	
+	#section-howto table th,
+	#section-howto table td {
+		cursor: pointer;
+		padding: var(--md-p);
+	}
+	
+	#section-howto table th:hover,
+	#section-howto table td:hover {
+		filter: brightness(1.5);
+		background-color: var(--light-bg-color);
+	}
+
+	#section-howto table thead {
+		background-color: var(--default-bg-color);
+	}
+
+	#section-howto table thead th:first-of-type{
+		border-radius: var(--xs-radius) 0 0 0;
+	}
+	
+	#section-howto table thead th:last-of-type{
+		border-radius: 0 var(--xs-radius) 0 0;
+	}
+
+	#section-howto table tbody tr:last-of-type td:first-of-type {
+		border-radius: 0 0 0 var(--xs-radius);
+	}
+	
+	#section-howto table tbody tr:last-of-type td:last-of-type {
+		border-radius: 0 0 var(--xs-radius) 0;
+	}
+
+	#section-howto .about-json {
+		margin-inline: auto;
+		max-width: 800px;
+		line-height: 1.5rem;
+	}
+	#section-howto .about-json a {
+		text-decoration: none;
+		color: var(--bright-text-color);
+		background-color: var(--default-bg-color);
+		padding: 2px .5rem;
+		border-radius: var(--xs-radius);
+	}
+	
+	#section-howto .about-json a:hover {
+		background-color: var(--light-bg-color);
+
+	}
+
+	#section-howto .about-footer {
+		margin-bottom: 2rem;
+	}
+
+	#section-examples {
+		display: flex;
+		max-width: 1200px;
+		flex-direction: column;
+		background-color: var(--dark-bg-color);
+		border-radius: var(--default-radius);
+		margin-top: 2rem;
+		overflow: hidden;
+	}
+
+	#section-examples .title{
+		margin-bottom: 1.5rem;
+	}
+
+	#section-examples aside {
+		flex-direction: column;
+		background-color: var(--light-bg-color);
+		padding: var(--md-p);
+	}
+	#example-request form {
+		margin-top: 1rem;
+		border-radius: var(--xs-radius);
+		background-color: var(--default-bg-color);
+		padding: var(--md-p);
+		gap: 1rem;
+	}
+	#example-request form input {
+		background-color: var(--code-bg-color);
+		padding: var(--input-p);
+		border-radius: var(--xs-radius);
+		border: none;
+		outline: none;
+		color: var(--default-text-color)
+	}
+	#example-request form input:hover {
+		background-color: var(--code-bg-color-hover);
+	}
+	#example-request form button {
+		background-color: var(--light-bg-color);
+		padding: var(--input-p);
+		border-radius: var(--xs-radius);
+		border: none;
+		outline: none;
+		color: var(--default-text-color);
+		cursor: pointer;
+	}
+	#example-request form button:hover {
+		background-color: var(--dark-bg-color);
+	}
+	pre {
+		white-space: pre-line;
+		text-align: justify;
+	}
+	
+</style>
 <body>
-	<section>
-		<h1>API para pegar relatórios do GISSONLINE</h1>
-		<p>Talvez você queira pesquisar um cnpj apartir da RAIZ, colocando o cnpj teste.
+	<section id="section-header">
+		<header>
+			<h2 class="title">API - Relatórios no GissOnline</h2>
+			<h3 class="subtitle">Como utilizar a API:</h3>
+		</header>
+		<code>
+			http://{seu_url_definido}/ginfes/{cnpj_a_buscar}/{mes_a_buscar}/{ano_a_buscar}
+		</code>
 	</section>
+	<section id="section-howto">
+		<header>
+			<h2 class="title">Como Preparar</h2>
+		</header>
+		<div class="container flex flex-col">
+			<div class="table-container">
+				<p>Para preparar o arquivo JSON com logins e senhas, utilizar o seguinte modelo de planilha:</p>
+				<table>
+					<thead>
+						<th>companyName</th>
+						<th>cnpj</th>
+						<th>userGiss</th>
+						<th>pwGiss</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td>EMPRESA FICTICIA LTDA</td>
+							<td>12345678901234</td>
+							<td>123456</td>
+							<td>Senha123</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="about-json">
+				<p>Após criação da planilha, será necessário converte-la em json, para isso possuem alguns websites próprios para esta conversão, website recomendado: <a href="https://csvjson.com/csv2json" target="_blank">https://csvjson.com/csv2json</a> </p>
+			</div>
+			<div class="about-footer">
+				<h3 class="subtitle">Após realização dos processsos colocar JSON no local:</h3>
+				<code>{diretorio_raiz}/functions/mocks/logins.json</code>
+			</div>
+		</div>
+	</section>
+	<section id="section-examples">
+		<header>
+			<h2 class="title">Exemplos</h2>
+		</header>
+		<div class="container flex">
+			<aside id="example-request" class="flex">
+				<h3 class="subtitle">Requisição</h3>
+				<code>
+					http://localhost/ginfes/12345678901234/01/2022/
+				</code>
+				<form class="flex flex-col">
+					<!-- <h3 class="subtitle">Faça o teste</h3> -->
+					<div>
+						<label for="cnpj">CNPJ:</label>
+						<input type="text" name="cnpj" placeholder="12345679012345" autocomplete="off" maxlength="14">
+					</div>
+					<div>
+						<label for="mes">Mês:</label>
+						<input type="text" name="mes" placeholder="01" autocomplete="off" maxlength="2">
+					</div>
+					<div>
+						<label for="ano">Ano:</label>
+						<input type="text" name="ano" placeholder="2022" autocomplete="off" maxlength="4">
+					</div>
+					<button type="submit">Buscar</button>
+				</form>
+			</aside>
+			<aside id="example-response" class="flex">
+				<h3 class="subtitle">Resposta</h3>
+				<code>
+				<pre id="json">
+					{
+						"statusCode": 200,
+						"companyName": "EMPRESA FICTICIA LTDA",
+						"formattedCnpj": "12.345.678/9012-34",
+						"cnpj": "12345678901234",
+						"mes": 1,
+						"ano": 2022,
+						"nfes": [
+						  {
+							"num_nfe": 843,
+							"date_nfe": 11,
+							"value_nfe": 88.77,
+							"activitie_nfe": 662230000,
+							"is_tributed_nfe": true
+						  },
+						  {
+							"num_nfe": 844,
+							"date_nfe": 11,
+							"value_nfe": 206.07,
+							"activitie_nfe": 662230000,
+							"is_tributed_nfe": true
+						  },
+						  {
+							"num_nfe": 845,
+							"date_nfe": 17,
+							"value_nfe": 1858.64,
+							"activitie_nfe": 662230000,
+							"is_tributed_nfe": true
+						  }
+						]
+					  }
+					</pre>
+				</code>
+			</aside>
+		</div>
+	</section>
+	<script defer>
+		(function(d) {
+			stylizePreElements = function() {
+			var preElements = document.querySelector("#json");
+			console.log(preElements)
+			for (i = 0; i < preElements.length; ++i) {
+				var preElement = preElements[i];
+				preElement.className += "prettyprint";
+			}
+			};
+			injectPrettifyScript = function() {
+			var scriptElement = document.createElement('script');
+			scriptElement.setAttribute("src", "https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js");
+			document.head.appendChild(scriptElement);
+			};
+
+			stylizePreElements();
+			injectPrettifyScript();
+
+		})(document)
+	</script>
 </body>
 </html>
