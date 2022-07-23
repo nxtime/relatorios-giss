@@ -1,7 +1,4 @@
-import * as date from './getDate.mjs';
 import puppeteer from 'puppeteer';
-import https from 'https';
-import merge from 'easy-pdf-merge';
 
 export default async function getDataGiss(loginGiss, senhaGiss, mes, ano) {
 
