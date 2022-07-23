@@ -2,10 +2,6 @@ import puppeteer from 'puppeteer';
 
 export default async function getDataGiss(loginGiss, senhaGiss, mes, ano) {
 
-    console.log(loginGiss, senhaGiss, mes, ano);
-    // mes = mes === null ? '0' + date.lastMonth : mes;
-    // ano = ano === null ? date.lastMonthYear.toString() : ano;
-    console.log(mes, ano)
     try {
         const browser = await puppeteer.launch({
             args: ["--no-sandbox", "--disable-setupid-sandbox"],
@@ -17,7 +13,6 @@ export default async function getDataGiss(loginGiss, senhaGiss, mes, ano) {
         await page.goto('https://portal.gissonline.com.br/login/index.html#', {
             waitUntil: 'networkidle2',
         });
-        console.log('Primeira Etapa!')
 
         const mouseClick = () => {
             page.mouse.down({ button: 'left' });
@@ -105,8 +100,6 @@ export default async function getDataGiss(loginGiss, senhaGiss, mes, ano) {
 
         browser.close();
 
-        console.log("Fechado o navegador!")
-
         return new Promise((resolve, reject) => {
             resolve(
                 {
@@ -119,8 +112,6 @@ export default async function getDataGiss(loginGiss, senhaGiss, mes, ano) {
         });
 
     } catch (err) {
-        console.log(err.message)
-        console.log("Erro ao pegar os dados!");
-        return { status: 'error', message: err.message }
+        return { statusCode: 400, message: err.message }
     }
 }

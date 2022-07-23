@@ -11,7 +11,7 @@ app.listen(port, (() => {
     console.log('Listening on port:', port);
 }));
 
-app.get("/", ((req, res) => {
+app.get("/", ((_, res) => {
     res.sendFile(__dirname + '/index.html')
 }));
 
@@ -26,16 +26,16 @@ app.get('/ginfes/relatorio/:cnpj/:mes/:ano', async (req, res) => {
         cnpj = '0'.repeat(remainingCnpj) + cnpj;
     }
 
-    const userData = await getLoginData(cnpj);
+    const {statusCode, message, company, userGiss, pwGiss} = await getLoginData(cnpj);
 
-    if (userData.status === 'error') {
-        res.json(userData)
+    if (statusCode === 400) {
+        res.json(message);
     } else {
-        const { statusCode, data } = await getDataGiss(userData.userGiss, userData.pwGiss, mes, ano);
+        const { statusCode, data } = await getDataGiss(userGiss, pwGiss, mes, ano);
 
         res.json({
             statusCode,
-            companyName: userData.company,
+            companyName: company,
             formattedCnpj: formatCnpj(cnpj),
             cnpj,
             mes: parseInt(mes, 10),
