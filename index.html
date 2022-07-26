@@ -206,7 +206,7 @@
 			<h3 class="subtitle">Como utilizar a API:</h3>
 		</header>
 		<code>
-			http://{seu_url_definido}/ginfes/{cnpj_a_buscar}/{mes_a_buscar}/{ano_a_buscar}
+			http://{seu_url_definido}/ginfes/{cnpj_a_buscar}/{mes_a_buscar}/{ano_a_buscar}/{estado_baixar_csv}
 		</code>
 	</section>
 	<section id="section-howto">
@@ -250,7 +250,7 @@
 			<aside id="example-request" class="flex">
 				<h3 class="subtitle">Requisição</h3>
 				<code>
-					http://localhost/ginfes/12345678901234/01/2022/
+					http://localhost/ginfes/12345678901234/01/2022/true
 				</code>
 				<form class="flex flex-col">
 					<!-- <h3 class="subtitle">Faça o teste</h3> -->
@@ -265,6 +265,10 @@
 					<div>
 						<label for="ano">Ano:</label>
 						<input type="text" name="ano" placeholder="2022" autocomplete="off" maxlength="4">
+					</div>
+					<div>
+						<label for="ano">Csv:</label>
+						<input type="text" name="ano" placeholder="true ou falso | 0 ou 1" autocomplete="off">
 					</div>
 					<button type="submit">Buscar</button>
 				</form>
@@ -309,26 +313,23 @@
 			</aside>
 		</div>
 	</section>
-	<script defer>
-		(function(d) {
-			stylizePreElements = function() {
-			var preElements = document.querySelector("#json");
+	<script>
+		stylizePreElements = function() {
+			var preElements = document.getElementById("json");
 			console.log(preElements)
 			for (i = 0; i < preElements.length; ++i) {
 				var preElement = preElements[i];
 				preElement.className += "prettyprint";
 			}
-			};
-			injectPrettifyScript = function() {
+		};
+		injectPrettifyScript = function() {
 			var scriptElement = document.createElement('script');
 			scriptElement.setAttribute("src", "https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js");
 			document.head.appendChild(scriptElement);
-			};
+		};
 
-			stylizePreElements();
-			injectPrettifyScript();
-
-		})(document)
+		stylizePreElements();
+		injectPrettifyScript();
 	</script>
 </body>
 </html>

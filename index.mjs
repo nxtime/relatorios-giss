@@ -1,5 +1,5 @@
 import express from 'express';
-import getLoginData from './functions/getLoginData.mjs';
+import getLoginData from './functions/getLoginData.bkp.mjs';
 import getDataGiss from './functions/getDataGiss.mjs';
 import path from 'path';
 const __dirname = path.resolve();
@@ -12,34 +12,34 @@ app.listen(port, (() => {
 }));
 
 app.get("/", ((_, res) => {
-    res.sendFile(__dirname + '/index.html')
+    res.sendFile(__dirname + '/index.html');
 }));
 
-app.get('/ginfes/relatorio/:cnpj/:mes/:ano', async (req, res) => {
-
+app.get('/ginfes/relatorio/:cnpj/:month/:year/:sheet', async (req, res) => {
     const cnpj = req.params.cnpj.toString().replace(/[^0-9,.]+/g, "");
-    const mes = req.params.mes.toString();
-    const ano = req.params.ano.toString();
-
+    const month = req.params.month.toString();
+    const year = req.params.year.toString();
+    const has_sheet = req.params.sheet.toString();
+    
     if (cnpj.length < 14) {
         const remainingCnpj = cnpj.length - 14;
         cnpj = '0'.repeat(remainingCnpj) + cnpj;
     }
 
-    const {statusCode, message, company, userGiss, pwGiss} = await getLoginData(cnpj);
+    const {statusCode, message, companyName, user, pw} = await getLoginData(cnpj);
 
     if (statusCode === 400) {
         res.json(message);
-    } else {
-        const { statusCode, data } = await getDataGiss(userGiss, pwGiss, mes, ano);
 
+    } else {
+        const { statusCode, data } = await getDataGiss(user, pw, month, year, has_sheet);
         res.json({
             statusCode,
-            companyName: company,
+            companyName,
             formattedCnpj: formatCnpj(cnpj),
             cnpj,
-            mes: parseInt(mes, 10),
-            ano: parseInt(ano, 10),
+            month: parseInt(month, 10),
+            year: parseInt(year, 10),
             nfes: data
         });
     }
